@@ -15,7 +15,7 @@ echo ---------------------------------------------------------------------------
 tput setaf 2
 echo Please choose an action:
 curr_db="\0" # equal to nothing
-PS3="Action:"
+PS3="Menu Action:"
 select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Exit"
 do
     case $db_input in
@@ -33,8 +33,9 @@ do
         echo $curr_db
     ;;
     "Drop DB" )
-        echo Choose a DB number to drop
+        echo Choose a DB Number To Drop
         bash db_layer/drop_db.sh 
+        #echo type x to go back to menu
     ;;
     "Exit" )
         exit

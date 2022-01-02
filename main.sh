@@ -31,7 +31,7 @@ do
         curr_db=$(db_layer/select_db.sh $REPLY)
     ;;
     "Drop DB" )
-        bash db_layer/drop_db.sh 
+        bash db_layer/drop_db.sh
         #echo type x to go back to menu
     ;;
     "Exit" )

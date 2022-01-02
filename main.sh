@@ -28,12 +28,9 @@ do
         bash db_layer/list_db.sh 
     ;;
     "Select DB" )
-        echo 'Choose DB number to select'
         curr_db=$(db_layer/select_db.sh $REPLY)
-        echo DB selected $curr_db
     ;;
     "Drop DB" )
-        echo Choose a DB Number To Drop
         bash db_layer/drop_db.sh 
         #echo type x to go back to menu
     ;;

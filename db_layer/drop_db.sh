@@ -1,7 +1,13 @@
 #!/bin/bash
 PS3="Number:"
-# if [ -d db_collection/]
-#then
+
+if [ ! "$(ls -A $(pwd)/db_collection/ 2>/dev/null)" ]
+then
+    echo No databases to drop
+    exit
+else 
+    echo Choose a DB Number To Drop
+fi
 select s_db in $(ls $(pwd)/db_collection/)
 do
     read -p "Are you sure you want to delete $s_db ? (Y/N): "

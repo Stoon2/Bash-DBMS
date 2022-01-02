@@ -5,7 +5,7 @@ PS3="Number:"
 select s_db in $(ls $(pwd)/db_collection/)
 do
     read -p "Are you sure you want to delete $s_db ? (Y/N): " pick
-    case $choise in
+    case $choice in
         [yY]*) rm -r "$(pwd)/db_collection/$s_db" exit;;
         [nN]*) echo " Operation Canceled";;
             *) echo "Invalid option";;

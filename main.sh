@@ -19,8 +19,7 @@ select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Exit DBMS"
 do
     case $db_input in
     "Create DB" )
-        echo Enter DB name:
-        read
+        read -p 'Enter DB name: '
         bash db_layer/create_db.sh $REPLY
     ;;
     "List DBs" )

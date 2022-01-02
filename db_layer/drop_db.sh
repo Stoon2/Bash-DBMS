@@ -4,12 +4,19 @@ PS3="Number:"
 #then
 select s_db in $(ls $(pwd)/db_collection/)
 do
-    read -p "Are you sure you want to delete $s_db ? (Y/N): " pick
-    case $choice in
-        [yY]*) rm -r "$(pwd)/db_collection/$s_db" exit;;
-        [nN]*) echo " Operation Canceled";;
-            *) echo "Invalid option";;
+    read -p "Are you sure you want to delete $s_db ? (Y/N): "
+    case $REPLY in
+        [yY]* ) 
+            rm -r "$(pwd)/db_collection/$s_db" 
+            exit
+        ;;
+        [nN]* ) 
+            echo " Operation Canceled"
+            exit
+        ;;
+            * ) echo "Invalid option"
     esac
+    exit
 done
 #else
     #echo "$name Database not exist"

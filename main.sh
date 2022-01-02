@@ -1,4 +1,5 @@
 #!/bin/bash
+PS3="Action Menu:"
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 

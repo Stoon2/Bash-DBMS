@@ -1,4 +1,5 @@
 #!/bin/bash
+PS3="Action Menu:"
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 
@@ -19,7 +20,8 @@ select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Exit DBMS"
 do
     case $db_input in
     "Create DB" )
-        read -p 'Enter DB name: '
+        echo Enter DB name:
+        read
         bash db_layer/create_db.sh $REPLY
     ;;
     "List DBs" )
@@ -31,8 +33,9 @@ do
         echo DB selected $curr_db
     ;;
     "Drop DB" )
-        echo Choose a DB number to drop
+        echo Choose a DB Number To Drop
         bash db_layer/drop_db.sh 
+        #echo type x to go back to menu
     ;;
     "Exit" )
         exit

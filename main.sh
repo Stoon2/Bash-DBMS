@@ -15,13 +15,11 @@ echo ---------------------------------------------------------------------------
 tput setaf 2
 echo Please choose an action:
 curr_db="\0" # equal to nothing
-PS3="Menu Action:"
-select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Exit"
+select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Exit DBMS"
 do
     case $db_input in
     "Create DB" )
-        echo Enter DB name:
-        read
+        read -p 'Enter DB name: '
         bash db_layer/create_db.sh $REPLY
     ;;
     "List DBs" )
@@ -30,7 +28,7 @@ do
     "Select DB" )
         echo 'Choose DB number to select'
         curr_db=$(db_layer/select_db.sh $REPLY)
-        echo $curr_db
+        echo DB selected $curr_db
     ;;
     "Drop DB" )
         echo Choose a DB Number To Drop

@@ -2,17 +2,20 @@
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 
+tput setaf 10 #Matrix color
 # Later we can edit the $USER to force capitalization on first letter and lower on the rest of username.
 # this will do for now though.
 echo ---------------------------------------------------------------------------
 echo
-echo "                 Welcome ${USER^} to our Bash-DBMS 🥳"
-echo "              Made by: Mohamed Elsayed and Mohamed Mohy"
+echo "                Welcome ${USER} to Bash-DBMS System 🥳"
+echo "                 Developed by: M.Elsayed and M.Mohy"
 echo
 echo ---------------------------------------------------------------------------
 
+tput setaf 2
 echo Please choose an action:
 curr_db="\0" # equal to nothing
+PS3="Action:"
 select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Exit"
 do
     case $db_input in
@@ -33,7 +36,7 @@ do
         echo Choose a DB number to drop
         bash db_layer/drop_db.sh 
     ;;
-    "Exit DBMS" )
+    "Exit" )
         exit
     ;;
     * )

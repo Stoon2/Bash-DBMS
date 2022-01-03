@@ -8,13 +8,13 @@ then
 else 
     echo Choose a DB Number To Drop
 fi
-select s_db in $(ls $(pwd)/db_collection/)
+select drop_db in $(ls $(pwd)/db_collection/)
 do
-    read -p "Are you sure you want to delete $s_db ? (Y/N): "
+    read -p "Are you sure you want to delete $drop_db ? (Y/N): "
     case $REPLY in
         [yY]*) 
-            rm -r "$(pwd)/db_collection/$s_db" 
-            echo $s_db has been dropped successfully
+            rm -r "$(pwd)/db_collection/$drop_db" 
+            echo $drop_db has been Deleted Successfully
             exit
         ;;
         [nN]*) 

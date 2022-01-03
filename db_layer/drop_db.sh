@@ -26,8 +26,3 @@ do
     esac
     exit
 done
-#else
-    #echo "$name Database not exist"
-#elseif
-    #echo "Currently there is no Databases"
-#fi

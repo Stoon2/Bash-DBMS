@@ -1,5 +1,5 @@
 #!/bin/bash
-PS3="Action Menu:"
+PS3="Menu Action:"
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 
@@ -16,7 +16,7 @@ echo ---------------------------------------------------------------------------
 tput setaf 2
 echo Please choose an action:
 curr_db="\0" # equal to nothing
-select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Exit DBMS"
+select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Rename DB" "Exit DBMS"
 do
     case $db_input in
     "Create DB" )
@@ -32,7 +32,9 @@ do
     ;;
     "Drop DB" )
         bash db_layer/drop_db.sh 
-        #echo type x to go back to menu
+    ;;
+    "Rename DB" )
+        bash db_layer/rename_db.sh
     ;;
     "Exit" )
         exit

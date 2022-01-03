@@ -1,0 +1,2 @@
+mv: cannot move 'db_collection//new' to 'collection//new1': No such file or directory
+mv: cannot move 'db_collection/new' to 'collection/new1': No such file or directory

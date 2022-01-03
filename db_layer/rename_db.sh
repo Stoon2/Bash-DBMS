@@ -1,5 +1,6 @@
   #!/bin/bash
-
+# note for change:
+# Lets insure that the $curr_db variable in main is nulled after a rename to avoid possible conflicts with renaming
   echo -e "Enter Current Database Name: \c"
   read db_name
   echo -e "Enter New Database Name: \c"

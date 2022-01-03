@@ -36,7 +36,7 @@ do
     "Rename DB" )
         bash db_layer/rename_db.sh
     ;;
-    "Exit" )
+    "Exit DBMS" )
         exit
     ;;
     * )

@@ -1,6 +1,0 @@
-delim:,
-index:1
-d_type:int:str:int
-
-id, name, age
-1, mohamed, 27

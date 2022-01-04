@@ -8,7 +8,7 @@ tput setaf 10 #Matrix color
 # this will do for now though.
 echo ---------------------------------------------------------------------------
 echo
-echo "                Welcome ${USER} to Bash-DBMS System 🥳"
+echo "                Welcome ${USER^} to Bash-DBMS System 🥳"
 echo "                 Developed by: M.Elsayed and M.Mohy"
 echo
 echo ---------------------------------------------------------------------------
@@ -22,20 +22,20 @@ do
     "Create DB" )
         echo Enter DB name:
         read
-        bash db_layer/create_db.sh $REPLY
+        db_layer/create_db.sh $REPLY
     ;;
     "List DBs" )
-        bash db_layer/list_db.sh 
+        db_layer/list_db.sh 
     ;;
     "Select DB" )
         curr_db=$(db_layer/select_db.sh $REPLY)
         echo Database selected is: $curr_db
     ;;
     "Drop DB" )
-        bash db_layer/drop_db.sh 
+        db_layer/drop_db.sh 
     ;;
     "Rename DB" )
-        bash db_layer/rename_db.sh
+        db_layer/rename_db.sh
     ;;
     "Exit DBMS" )
         exit

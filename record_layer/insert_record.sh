@@ -77,6 +77,7 @@ do
 
 done
 
+# INSURE WE ADD ESCAPE SQUENCE TO BACKSPACE '\'
 # add delimiter after every column
 printf -v joined "%s${curr_delim}" "${r_enteries[@]}"
 # inputs string delimited by curr_delim and removes the delim from end of line

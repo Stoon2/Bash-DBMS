@@ -12,6 +12,6 @@ then
     echo "Error creating database $1"
   fi
 else
-    echo "$1 Database already exists"
+    echo "$1 Database already exists or input is incorrect"
     exit
 fi

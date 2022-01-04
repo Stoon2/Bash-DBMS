@@ -1,21 +1,24 @@
 #!/bin/bash
-#still not finished IM GONNA KILL MYSELF AND ITS YOUR FAULT MOHY
+PS3="Choice:"
+cd $1
 
-#echo -e "Table Name: \c"
- # read tablename
- # if [[ -f $tablename ]]; then
-  #  echo "table already existed ,choose another name"
- # fi
-
+while true
+do
+  echo -e "Table Name: \c"
   read tableName
+  if [[ -f $tableName ]]; 
+  then
+  echo "Table already existed ,choose another name"
+  else 
+  break
+  fi
+ done
+
 
   echo -e "Number of Columns: \c"
   read colsNum
   counter=1
   sep=":"
-  rSep="\n"
-  pKey=""
-  metaData="Columan"$sep"Type"$sep"key"
   while [ $counter -le $colsNum ]
   do
     echo -e "Name of Column No.$counter: \c"
@@ -25,28 +28,11 @@
     select var in "int" "str"
     do
       case $var in
-        int ) colType="int";break;;
-        str ) colType="str";break;;
-        * ) echo "Wrong Choice" ;;
+        int ) colType="int";type=$type${colType}$sep;break;;
+        str ) colType="str";type=$type${colType}$sep;break;;
+        * ) echo "Invalid Choice" ;;
       esac
     done
-    if [[ $pKey == "" ]]; then
-      echo -e "Make PrimaryKey ? "
-      select var in "yes" "no"
-      do
-        case $var in
-          yes ) pKey="PK";
-          metaData+=$rSep$colName$sep$colType$sep$pKey;
-          break;;
-          no )
-          metaData+=$rSep$colName$sep$colType$sep""
-          break;;
-          * ) echo "Wrong Choice" ;;
-        esac
-      done
-    else
-      metaData+=$rSep$colName$sep$colType$sep""
-    fi
     if [[ $counter == $colsNum ]]; then
       temp=$temp$colName
     else
@@ -54,15 +40,25 @@
     fi
     ((counter++))
   done
-  touch .$tableName # or .$tableName.
-  echo -e $metaData  >> ".$tableName"
+  echo "Do you want add primary key?"
+  select approve in "yes" "no"
+  do 
+  case $approve in
+        yes ) p_key="1";break ;;
+        no ) p_key="0";break ;;
+        * ) echo "Invalid Choice" ;;
+        esac 
+    done
+  structure="delim:^_^\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #removing last delimater
+  touch .$tableName
+  echo -e $structure  >> ".$tableName"
   touch $tableName
-  echo -e $temp >> "$tableName"
+  #echo -e $temp >> "$tableName"
   if [[ $? == 0 ]]
   then
     echo "Table Created Successfully"
-    #tablesMenu
+    exit
   else
     echo "Error Creating Table $tableName"
-    #tablesMenu
+    exit
   fi

@@ -1,8 +1,8 @@
 #!/bin/bash
-PS3="Menu Action:"
+PS3="Main Action:"
 shopt -s expand_aliases;
 alias r_l = 'record_layer'
-alias t_l = 'table_layer'
+alias t_l = "table_layer"
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 
@@ -35,15 +35,16 @@ do
         echo Database selected is: $curr_db
         select t_choice in "List Existing Tables" "Create New Table" "Drop Table" "Insert Into Table" "Select From Table" "Delete From Table" "Update Table" "Back To Main Menu" "Exit"
         do
+        PS3="Table Action:"
           case $t_choice in
             "List Existing Tables" )  
-              ls $curr_db;
+              ls $curr_db
             ;;
             "Create New Table" )  
-              bash table_layer/create_table.sh
+              bash table_layer/create_table.sh $curr_db
             ;;
             "Drop Table" )  
-              bash t_l/drop_table.sh
+              bash table_layer/drop_table.sh $curr_db
             ;;
             "Insert Into Table" )
               bash r_l/insert_record.sh

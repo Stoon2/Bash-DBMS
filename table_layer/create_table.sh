@@ -1,19 +1,21 @@
 #!/bin/bash
 #still not finished IM GONNA KILL MYSELF AND ITS YOUR FAULT MOHY
 
-echo -e "Table Name: \c"
-  read tablename
-  if [[ -f $tablename ]]; then
-    echo "table already existed ,choose another name"
-  fi
+#echo -e "Table Name: \c"
+ # read tablename
+ # if [[ -f $tablename ]]; then
+  #  echo "table already existed ,choose another name"
+ # fi
+
+  read tableName
 
   echo -e "Number of Columns: \c"
   read colsNum
   counter=1
-  sep=","
+  sep=":"
   rSep="\n"
   pKey=""
-  metaData="Field"$sep"Type"$sep"key"
+  metaData="Columan"$sep"Type"$sep"key"
   while [ $counter -le $colsNum ]
   do
     echo -e "Name of Column No.$counter: \c"
@@ -53,14 +55,14 @@ echo -e "Table Name: \c"
     ((counter++))
   done
   touch .$tableName # or .$tableName.
-  echo -e $metaData  >> .$tableName
+  echo -e $metaData  >> ".$tableName"
   touch $tableName
-  echo -e $temp >> $tableName
+  echo -e $temp >> "$tableName"
   if [[ $? == 0 ]]
   then
     echo "Table Created Successfully"
-    tablesMenu
+    #tablesMenu
   else
     echo "Error Creating Table $tableName"
-    tablesMenu
+    #tablesMenu
   fi

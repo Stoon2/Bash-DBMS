@@ -1,9 +1,7 @@
 #!/bin/bash
 PS3="Action:"
 DIR="$(pwd)/db_collection"
-# shopt -s expand_aliases;
-# alias dir=$(pwd)/db_collection/;
-# function ss { $(pwd)/bash table.sh };
+#shopt -s expand_aliases;
 if [ ! "$(ls -A $(pwd)/db_collection/ 2>/dev/null)" ]
 then
     echo 'No databases to select';

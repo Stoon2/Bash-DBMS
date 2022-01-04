@@ -30,6 +30,41 @@ do
     "Select DB" )
         curr_db=$(db_layer/select_db.sh $REPLY)
         echo Database selected is: $curr_db
+
+        select t_choice in "List Existing Tables" "Create New Table" "Drop Table" "Insert Into Table" "Select From Table" "Delete From Table" "Update Table" "Back To Main Menu" "Exit"
+        do
+          case $t_choice in
+            "List Existing Tables" )  
+              ls $curr_db;
+            ;;
+            "Create New Table" )  
+              bash table_layer/create_table.sh
+            ;;
+            "Drop Table" )  
+              bash table_layer/drop_table.sh
+            ;;
+            "Insert Into Table" )
+              bash record_layer/insert_record.sh
+            ;;
+            "Select From Table" )
+              bash record_layer/select_record.sh
+            ;;
+            "Delete From Table" )
+              bash record_layer/delete_record.sh
+            ;;
+            "Update Table" )
+              bash record_layer/update_record.sh
+            ;;
+            "Back To Main Menu" )
+              break
+            ;;
+            "Exit" )  
+              exit 
+            ;;
+            * )
+              echo "$(tput setaf 1)Invalid Input"
+          esac
+        done
     ;;
     "Drop DB" )
         db_layer/drop_db.sh 
@@ -44,3 +79,4 @@ do
         echo Not valid input, please choose a number from the menu.
     esac
 done
+

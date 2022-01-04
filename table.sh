@@ -14,13 +14,12 @@
   echo  "5. Select From Table"               
   echo  "6. Delete From Table"          
   echo  "7. Update Table"                 
-  echo  "8. Back To Main Menu"          
+  echo  "8. Back To Main Menu"
   echo  "9. Exit"                       
   echo -e "Table Action: \c"
   read pick
   case $pick in
-    1)  ls ; 
-        bash table.sh;;
+    1)  ls db_collection;;
     2)  bash table_layer/create_table.sh ;;
     3)  bash table_layer/drop_table.sh ;;
     4)  bash record_layer/insert_record.sh ;;
@@ -29,6 +28,7 @@
     7)  bash record_layer/update_record.sh ;;
     8)  bash main.sh ;;
     9)  exit ;;
-    *) echo "$(tput setaf 1)Invalid Input"; bash table.sh ;;
+    *)  echo "$(tput setaf 1)Invalid Input";;
   esac
+  
   

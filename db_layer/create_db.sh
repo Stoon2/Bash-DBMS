@@ -6,11 +6,11 @@ then
   chmod a+x "$(pwd)/db_collection/$1/" # insure execute permission is given on created dirs
   if [[ $? == 0 ]]
   then
-    echo "$1 Database is created successfully"
+    echo "$1 Database created successfully"
   else
-    echo "Error Creating Database $1"
+    echo "Error creating database $1"
   fi
 else
-    echo "$1 Database is already exist"
+    echo "$1 Database already exists"
     exit
 fi

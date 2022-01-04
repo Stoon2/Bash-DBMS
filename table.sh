@@ -3,7 +3,7 @@
   tput setaf 2
   echo  --------------------------------------------
   tput setaf 11
-  echo -e "$REPLY ------------------ $(tput setaf 1) Connected" #Connect here to Database name(Directory name)
+  echo -e " ------------------ $(tput setaf 1) Connected" #Connect here to Database name(Directory name)
   tput setaf 2
   echo  --------------------------------------------
   tput setaf 2

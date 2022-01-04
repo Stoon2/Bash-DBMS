@@ -1,4 +1,5 @@
 #!/bin/bash
+#add key to abort
 DIR="db_collection/$1"
   if [ ! -d "$DIR" ]
 then

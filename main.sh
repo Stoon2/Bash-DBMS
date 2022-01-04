@@ -29,6 +29,7 @@ do
     ;;
     "Select DB" )
         curr_db=$(db_layer/select_db.sh $REPLY)
+        echo $curr_db
     ;;
     "Drop DB" )
         bash db_layer/drop_db.sh 

@@ -1,8 +1,8 @@
 #!/bin/bash
 PS3="Menu Action:"
 shopt -s expand_aliases;
-alias r_l = record_layer
-alias t_l = table_layer
+alias r_l = 'record_layer'
+alias t_l = 'table_layer'
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 
@@ -40,7 +40,7 @@ do
               ls $curr_db;
             ;;
             "Create New Table" )  
-              bash t_l/create_table.sh
+              bash table_layer/create_table.sh
             ;;
             "Drop Table" )  
               bash t_l/drop_table.sh

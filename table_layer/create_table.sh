@@ -49,9 +49,9 @@ do
         * ) echo "Invalid Choice" ;;
         esac 
     done
-  structure="delim:^_^\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #removing last delimater
+  Metadata="delim:^_^\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #removing last delimater
   touch .$tableName
-  echo -e $structure  >> ".$tableName"
+  echo -e $Metadata  >> ".$tableName"
   touch $tableName
   #echo -e $temp >> "$tableName"
   if [[ $? == 0 ]]

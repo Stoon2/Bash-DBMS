@@ -1,5 +1,8 @@
 #!/bin/bash
 PS3="Menu Action:"
+shopt -s expand_aliases;
+alias r_l = record_layer
+alias t_l = table_layer
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 
@@ -30,7 +33,6 @@ do
     "Select DB" )
         curr_db=$(db_layer/select_db.sh $REPLY)
         echo Database selected is: $curr_db
-
         select t_choice in "List Existing Tables" "Create New Table" "Drop Table" "Insert Into Table" "Select From Table" "Delete From Table" "Update Table" "Back To Main Menu" "Exit"
         do
           case $t_choice in
@@ -38,22 +40,22 @@ do
               ls $curr_db;
             ;;
             "Create New Table" )  
-              bash table_layer/create_table.sh
+              bash t_l/create_table.sh
             ;;
             "Drop Table" )  
-              bash table_layer/drop_table.sh
+              bash t_l/drop_table.sh
             ;;
             "Insert Into Table" )
-              bash record_layer/insert_record.sh
+              bash r_l/insert_record.sh
             ;;
             "Select From Table" )
-              bash record_layer/select_record.sh
+              bash r_l/select_record.sh
             ;;
             "Delete From Table" )
-              bash record_layer/delete_record.sh
+              bash r_l/delete_record.sh
             ;;
             "Update Table" )
-              bash record_layer/update_record.sh
+              bash r_l/update_record.sh
             ;;
             "Back To Main Menu" )
               break

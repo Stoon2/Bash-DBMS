@@ -19,7 +19,7 @@
   echo -e "Table Action: \c"
   read pick
   case $pick in
-    1)  ls db_collection;;
+    1)  ls db_collection ;;
     2)  bash table_layer/create_table.sh ;;
     3)  bash table_layer/drop_table.sh ;;
     4)  bash record_layer/insert_record.sh ;;
@@ -30,5 +30,3 @@
     9)  exit ;;
     *)  echo "$(tput setaf 1)Invalid Input";;
   esac
-  
-  

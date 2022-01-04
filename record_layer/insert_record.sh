@@ -10,7 +10,7 @@ DIR="$(pwd)/db_collection"
 # $2 argument 2 is table name
 
 # validation for db_collection folder
-if [ ! -d "$(pwd)/db_collection" ]
+if [ ! -d $DIR ]
 then
     echo "db_collection directory does not exist, please create a DB through 'Create a DB' in the main menu."
     exit
@@ -76,8 +76,8 @@ do
     fi
 
 done
-echo ${r_enteries[1]}
-# regex in sed escapes any string colons followed by ours
-echo ${r_enteries[@]} 
+
+# add delimiter after every column
 printf -v joined "%s${curr_delim}" "${r_enteries[@]}"
-echo "${joined%curr_delim}" >> $DIR/$1/$2
+# inputs string delimited by curr_delim and removes the delim from end of line
+echo "${joined::-${#curr_delim}}" >> $DIR/$1/$2

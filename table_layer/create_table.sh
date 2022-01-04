@@ -1,5 +1,5 @@
 #!/bin/bash
-#still not finished
+#still not finished IM GONNA KILL MYSELF AND ITS YOUR FAULT MOHY
 
 echo -e "Table Name: \c"
   read tablename

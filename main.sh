@@ -47,10 +47,18 @@ do
               bash table_layer/drop_table.sh $curr_db
             ;;
             "Insert Into Table" )
-              bash r_l/insert_record.sh
+              select select_table in $(ls $curr_db)
+              do
+                record_layer/insert_record.sh $curr_db $select_table
+                break
+              done
             ;;
             "Select From Table" )
-              bash r_l/select_record.sh
+              select select_table in $(ls $curr_db)
+              do
+                record_layer/select_record.sh $curr_db $select_table
+                break
+              done
             ;;
             "Delete From Table" )
               bash r_l/delete_record.sh

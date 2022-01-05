@@ -32,7 +32,9 @@ else
     total_records=$(wc -l $t_path | cut -d' ' -f1) # provides current delimeter from metadata
 fi
 
-read
+# read -p "Please enter the value you wish to match: " match
+# read -p "Please enter the value you wish to match: " update
+# sed -i "s/$match/$update/g" $t_path
 
 sel_list=$(sed -n 3p $ht_path);
 sel_list=${sel_list:10}; # remove col_name from hidden fi
@@ -56,7 +58,7 @@ do
             read -p "What do you want to update in column $select_col?: ";
             
             more $t_path | grep -nw $REPLY | sed 's/\^\_\^/:/g' | cut -d: -f1 # to find line numbers to update
-            more $t_path | grep -w $REPLY | sed 's/\^\_\^/ | /g' | cut -d: -f1 # field to update in line, 
+            more $t_path | grep -w $REPLY | sed 's/\^\_\^/:/g' | cut -d: -f1 # field to update in line, 
             # how to deal with multiple character delim? could convert ^_^ to : briefly
             # where a condition is matched by grep, cut the field and update it
     esac

@@ -61,11 +61,7 @@ do
               done
             ;;
             "Delete From Table" )
-              select select_table in $(ls $curr_db)
-              do
-                record_layer/delete_record.sh $curr_db $curr_db $select_table
-                break
-              done
+              bash record_layer/delete_record.sh $curr_db
             ;;
             "Update Table" )
               select select_table in $(ls $curr_db)

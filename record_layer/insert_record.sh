@@ -1,5 +1,5 @@
 #!/bin/bash
-
+    # add column name fix
 # ------------------------------------------------------
 # This script assumes its running from project root dir
 # ------------------------------------------------------
@@ -32,22 +32,33 @@ else
     if [ $(sed -n 4p $ht_path | cut -d: -f2) == 1 ]
     then
         pk_exists=1
+        total_cols=$(($total_cols-1))
     fi
 fi
 
 r_enteries=() # array to store user input
-for ((i=1; i<=$total_cols; i++))
+for ((i=0; i<=$total_cols; i++))
 do
-    # logic created to check correct column data-type
-    tmp=$i;
-    tmp=$((i+1));
-    col_name=$(sed -n 3p $ht_path | cut -d: -f$tmp)
-
+    # logic created to check correct column data-type / inconsistency with logic
+    # --------------------------------------------------------------------------$
+    tmp=$i;                                                                     #
+    if [ $pk_exists == 1 ]                                                      #
+    then                                                                        #
+        tmp=$((i+2));                                                           #
+        t=$((tmp-1));                                                           #
+        echo pk here: $tmp                                                      #
+        col_name=$(sed -n 3p $ht_path | cut -d: -f$t)                           #
+    else                                                                        #
+        tmp=$((i+1));                                                           #
+        col_name=$(sed -n 3p $ht_path | cut -d: -f$tmp)                         #
+    fi                                                                          #
+    # --------------------------------------------------------------------------#
     # if column value is string, wrap input in single quotes to make it literal
     if [ $(tail -n1 $ht_path | cut -d: -f$tmp) == 'pk' ];
     then
         o_index=`sed -n 2p $ht_path | cut -d: -f2`
         r_enteries+=("$o_index")
+
     elif [ $(tail -n1 $ht_path | cut -d: -f$tmp) == 'str' ];
     then
         read -p "Please enter a string for column $col_name: ";

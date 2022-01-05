@@ -24,18 +24,16 @@ do
   select approve in "yes" "no"
   do 
   case $approve in
-    yes ) p_key="1";break ;;
-    no ) p_key="0";break ;;
-    * ) echo "Invalid Choice" ;;
+    yes ) p_key="1"
+          colType="pk";
+          type=$type${colType}$sep;
+          break;;
+    no )  p_key="0";break ;;
+    * ) 
+      echo "Invalid Choice" 
+    ;;
     esac 
   done
-
-   if [ $p_key == 1 ]
-  then
-    colType="pk";
-    type=$type${colType}$sep;
-    pk_col_added=1;
-  fi
 
   while [ $counter -le $colsNum ]
   do

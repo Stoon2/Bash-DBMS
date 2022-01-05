@@ -19,12 +19,31 @@ do
   read colsNum
   counter=1
   sep=":"
+
+  echo "Do you want add primary key?"
+  select approve in "yes" "no"
+  do 
+  case $approve in
+    yes ) p_key="1";break ;;
+    no ) p_key="0";break ;;
+    * ) echo "Invalid Choice" ;;
+    esac 
+  done
+
+   if [ $p_key == 1 ]
+  then
+    colType="pk";
+    type=$type${colType}$sep;
+    pk_col_added=1;
+  fi
+
   while [ $counter -le $colsNum ]
   do
     echo -e "Name of Column No.$counter: \c"
     read colName
 
     echo -e "Type of Column $colName: "
+
     select var in "int" "str"
     do
       case $var in
@@ -40,15 +59,7 @@ do
     fi
     ((counter++))
   done
-  echo "Do you want add primary key?"
-  select approve in "yes" "no"
-  do 
-  case $approve in
-        yes ) p_key="1";break ;;
-        no ) p_key="0";break ;;
-        * ) echo "Invalid Choice" ;;
-        esac 
-    done
+
   Metadata="delim:^_^\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #removing last delimater
   touch .$tableName
   echo -e $Metadata  >> ".$tableName"

@@ -28,27 +28,12 @@ else
     ht_path="$1/.$2"
     total_cols=$(tail -n1 $ht_path | grep -o ":" | wc -l) # provides num of cols from metadata
     curr_delim=$(head -n1 $ht_path | cut -d: -f2) # provides current delimeter from metadata
-
+    pk_exists=0;
+    if [ $(sed -n 4p $ht_path | cut -d: -f2) == 1 ]
+    then
+        pk_exists=1
+    fi
 fi
-
-# echo "Do you wish to specify a primary key?";
-
-# select p_key in "Yes" "No"
-# do
-#     case $p_key in
-#         "Yes") 
-#             total_cols=$((total_cols+1));
-#             break
-#         ;;
-#         "No") 
-#             echo "No primary key will be specified"
-#             break
-#         ;;
-#         *) 
-#             echo "Invalid option"
-#         ;;
-#     esac
-# done
 
 r_enteries=() # array to store user input
 for ((i=1; i<=$total_cols; i++))
@@ -59,10 +44,11 @@ do
     col_name=$(sed -n 3p $ht_path | cut -d: -f$tmp)
 
     # if column value is string, wrap input in single quotes to make it literal
-    if [ [$(tail -n1 $ht_path | cut -d: -f$tmp) == 'pk' ]
+    if [ $(tail -n1 $ht_path | cut -d: -f$tmp) == 'pk' ];
     then
-        echo im a pk
-    elif [ $(tail -n1 $ht_path | cut -d: -f$tmp) == 'str' ]
+        o_index=`sed -n 2p $ht_path | cut -d: -f2`
+        r_enteries+=("$o_index")
+    elif [ $(tail -n1 $ht_path | cut -d: -f$tmp) == 'str' ];
     then
         read -p "Please enter a string for column $col_name: ";
         r_enteries+=( "'$REPLY'" )
@@ -83,7 +69,7 @@ do
 done
 
 # increment index for table
-if [ $(sed -n 4p $ht_path | cut -d: -f2) == 1 ]
+if [ $pk_exists == 1 ];
 then
     o_index=`sed -n 2p $ht_path | cut -d: -f2`
     n_index=`expr $o_index + 1`

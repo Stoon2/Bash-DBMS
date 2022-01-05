@@ -2,7 +2,6 @@
 
 PS3="Number:"
 
-
 if [ ! "$(ls -A $1 2>/dev/null)" ]
 then
     echo "No Tables to delete"

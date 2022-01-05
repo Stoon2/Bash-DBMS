@@ -1,7 +1,7 @@
 #!/bin/bash
 PS3="Main Action:"
 shopt -s expand_aliases;
-alias r_l = 'record_layer'
+alias r_l = "record_layer"
 alias t_l = "table_layer"
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
@@ -53,7 +53,7 @@ do
               bash r_l/select_record.sh
             ;;
             "Delete From Table" )
-              bash r_l/delete_record.sh
+              bash record_layer/delete_record.sh $curr_db
             ;;
             "Update Table" )
               bash r_l/update_record.sh

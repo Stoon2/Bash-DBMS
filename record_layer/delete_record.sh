@@ -1,5 +1,6 @@
 #!/bin/bash
 PS3="Action: "
+#sed -i ''$NR'd' $1
 read -p "Enter table Name: " tableName
 if [[ -f $1 ]]; 
     then
@@ -19,6 +20,7 @@ if [[ -f $1 ]];
 			}
 		}
 		{if(NR!=target)print 
+
 		}
 	}' $1 > tmp && mv tmp $1;
 else

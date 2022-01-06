@@ -53,6 +53,7 @@ do
         col_name=$(sed -n 3p $ht_path | cut -d: -f$tmp)                         #
     fi                                                                          #
     # --------------------------------------------------------------------------#
+    
     # if column value is string, wrap input in single quotes to make it literal
     if [ $(tail -n1 $ht_path | cut -d: -f$tmp) == 'pk' ];
     then
@@ -92,3 +93,4 @@ fi
 printf -v joined "%s${curr_delim}" "${r_enteries[@]}"
 # inputs string delimited by curr_delim and removes the delim from end of line
 echo "${joined::-${#curr_delim}}" >> $t_path
+

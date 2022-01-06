@@ -55,10 +55,18 @@ do
                     break
                 fi
             done
-            read -p "What do you want to update in column $select_col?: ";
-            
-            more $t_path | grep -nw $REPLY | sed 's/\^\_\^/:/g' | cut -d: -f1 # to find line numbers to update
-            more $t_path | grep -w $REPLY | sed 's/\^\_\^/:/g' | cut -d: -f1 # field to update in line, 
+            echo "If your input is a string, please wrap it in single quotes like so 'input'!!!"
+            echo
+            read -p "What do you want to match in column $select_col?: " match;
+            read -p "What do you want to update in column $select_col?: " insert;
+
+            # Sanitizes delimiter for all REGEX character by escaping them
+            escaped_delm=$(echo $curr_delim | sed 's/[^^\\]/[&]/g; s/\^/\\^/g; s/\\/\\\\/g')
+            awk -F"$escaped_delm" -v pick=$picked_field -v a_del=$match -v a_ins=$insert -v OFS='^_^' '$pick==a_del {$pick=a_ins} 1' $t_path > tmp && mv tmp $t_path
+
+            # USE PRINTF to replace MULTICHAR DELIM LIKE FROM INSERT RECORD 
+            #can be used for delete later, still needs work            # sed "s/\^\_\^/:/g" $t_path | cut -d: -f1 | grep -nw $delete | sed "s/\^\_\^/:/g" | cut -d: -f1 # to find line numbers to update
+            # grep -w $delete $t_path | sed "s/\^\_\^/:/g" | cut -d: -f1 # field to update in line, 
             # how to deal with multiple character delim? could convert ^_^ to : briefly
             # where a condition is matched by grep, cut the field and update it
     esac

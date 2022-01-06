@@ -70,9 +70,7 @@ do
                 tmp_field=$((picked_field+1))
             fi
             data_type=$(sed -n 5p $ht_path | cut -d: -f$tmp_field)
-            echo "data type is $data_type"
-            echo "tmp field number is $tmp_field"
-            echo "picked field number is $picked_field"
+
             read -p "What do you want to match for in column $select_col?: " match;
             read -p "What do you want to update in column $select_col?: " insert;
             if [ $data_type == 'int' ]

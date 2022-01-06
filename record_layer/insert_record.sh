@@ -45,15 +45,14 @@ do
     if [ $pk_exists == 1 ]                                                      #
     then                                                                        #
         tmp=$((i+2));                                                           #
-        t=$((tmp-1));                                                           #
-        echo pk here: $tmp                                                      #
+        t=$((tmp-1));                                                           #                                                   #
         col_name=$(sed -n 3p $ht_path | cut -d: -f$t)                           #
     else                                                                        #
         tmp=$((i+1));                                                           #
         col_name=$(sed -n 3p $ht_path | cut -d: -f$tmp)                         #
     fi                                                                          #
     # --------------------------------------------------------------------------#
-    
+
     # if column value is string, wrap input in single quotes to make it literal
     if [ $(tail -n1 $ht_path | cut -d: -f$tmp) == 'pk' ];
     then

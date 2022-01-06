@@ -1,13 +1,16 @@
 #!/bin/bash
 PS3="Action: "
-#sed -i ''$NR'd' $1
-read -p "Enter table Name: " tableName
-if [[ -f $1 ]]; 
+t_path="$1/$2"
+ht_path="$1/.$2"
+curr_delim=$(head -n1 $ht_path | cut -d: -f2) # provides current delimeter from metadata
+escaped_delm=$(echo $curr_delim | sed 's/[^^\\]/[&]/g; s/\^/\\^/g; s/\\/\\\\/g') # delimiter sanitized from regex chars
+
+if [[ -f $t_path ]]; 
     then
-	awk -F: 'BEGIN{FS=":"}{if(NR==1){print $0}}' $1;
+	awk -F"$escaped_delm" -v delm=$escaped_delm 'BEGIN{FS="delm"}{if(NR==1){print $0}}' $t_path;
 	read -p "Enter column to delete record from: " colName;
 	read -p "Enter value : " Value;
-	awk -F:  'BEGIN{FS=":"}
+	awk -F"$escaped_delm" -v delm=$escaped_delm 'BEGIN{FS="pick"}
 	{
 		if(NR==1){
 			for(i=1;i<=NF;i++){
@@ -22,8 +25,8 @@ if [[ -f $1 ]];
 		{if(NR!=target)print 
 
 		}
-	}' $1 > tmp && mv tmp $1;
+	}' $t_path > tmp && mv tmp $t_path;
 else
-	echo "$1 doesn't exist";
+	echo "$2 doesn't exist"; # reference to table name not table path, leave as is
     exit
 fi

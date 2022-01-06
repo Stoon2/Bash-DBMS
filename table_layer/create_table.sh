@@ -59,10 +59,10 @@ do
   done
 
   Metadata="delim:^_^\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #removing last delimater
-  touch .$tableName
-  echo -e $Metadata  >> ".$tableName"
-  #touch $tableName
-  echo -e $temp >> "$tableName"
+  touch .$tableName.SQL
+  echo -e $Metadata  >> ".$tableName.SQL"
+  touch $tableName.SQL
+  echo -e $temp >> "$tableName.SQL"
   if [[ $? == 0 ]]
   then
     echo "Table Created Successfully"

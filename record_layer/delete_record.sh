@@ -2,16 +2,18 @@
 PS3="Action: "
 t_path="$1/$2"
 ht_path="$1/.$2"
+
 curr_delim=$(head -n1 $ht_path | cut -d: -f2) # provides current delimeter from metadata
 escaped_delm=$(echo $curr_delim | sed 's/[^^\\]/[&]/g; s/\^/\\^/g; s/\\/\\\\/g') # delimiter sanitized from regex chars
-# cp $1 tmp1
+# $t_path  > tmp1
 
 if [[ -f $t_path ]]; 
     then
 	awk -F"$escaped_delm" -v OFS="$escaped_delm" '{if(NR==1){print $0}}' $t_path;
 	read -p "Enter column to delete record from: " colName;
 	read -p "Enter value : " Value;
-	str='((?:''|['$Value'^])*)'
+	str=\'$Value\'
+	echo $str
 	awk -F"$escaped_delm" -v OFS="$escaped_delm" '
 	{
 		if(NR==1){
@@ -20,12 +22,11 @@ if [[ -f $t_path ]];
 			}
 		}
 		else{
-			if($here=='$Value' || $here=='$Value'){
+			if($here=='$Value' || $here==$str ){
 				target=NR
 			}
 		}
 		{if(NR!=target)print 
-
 		}
 	}' $t_path > tmp && mv tmp $t_path;
 	# sed -i ''$target'd' $t_path
@@ -35,12 +36,11 @@ else
 	exit
 fi
 
-# cp $1 tmp2
-# if  [[ tmp1 != tmp2 ]];
+# $t_path > tmp2
+# if  cmp -s "$tmp1" "$tmp2"
 # then 
-# echo the record deleted successfully
+# echo "The record deleted successfully"
 # else
-# echo this record cannot found
+# echo "This record cannot be found"
 # fi
-# rm tmp1,tmp2;
 

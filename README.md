@@ -1,6 +1,6 @@
-<p align="center">
+<div><p align="center">
     <img src="https://chemnitzer.linux-tage.de/2017/static/img/box/tuxel.gif" alt="Image" />
-</p>
+</p></div>
 
 <h1> <p align="center" style="color:#adff2f; font-family:cursive"> Say hello to the penguin  </p></h1>
 

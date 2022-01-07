@@ -71,7 +71,6 @@ done
   if [ $trig == "1" ]
   then
   p_ki="$p1$p2" #Metadata if there is a primary key
-  echo $p_ki
   fi 
 
   Metadata="m_sep:$m_sep\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #Assigning the Metadata key, and removing last separator

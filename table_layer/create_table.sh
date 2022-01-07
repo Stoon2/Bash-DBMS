@@ -63,15 +63,11 @@ done
     fi
     ((counter++))
   done
-
-  tab="${tab::-${#m_sep}}" 
-
-  p1="pk$m_sep"
-  p2="$tab"
-  if [ $trig == "1" ]
-  then
-  p_ki="$p1$p2" #Metadata if there is a primary key
-  fi 
+  
+  if [ flag -eq 1 ] 
+  then 
+    temp='pk:$temp' 
+  fi #Metadata - Add PK as first argument in hidden table col_names row if user confirmed PK
 
   Metadata="m_sep:$m_sep\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #Assigning the Metadata key, and removing last separator
   

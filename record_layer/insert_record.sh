@@ -94,3 +94,4 @@ printf -v joined "%s${curr_delim}" "${r_enteries[@]}"
 # inputs string delimited by curr_delim and removes the delim from end of line
 echo "${joined::-${#curr_delim}}" >> $t_path
 
+$(echo )

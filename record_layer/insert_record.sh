@@ -45,7 +45,7 @@ do
     if [ $pk_exists == 1 ]                                                      #
     then                                                                        #
         tmp=$((i+2));                                                           #
-        t=$((tmp-1));                                                           #                                                   #
+        t=$((tmp-1));                                                           #
         col_name=$(sed -n 3p $ht_path | cut -d: -f$t)                           #
     else                                                                        #
         tmp=$((i+1));                                                           #

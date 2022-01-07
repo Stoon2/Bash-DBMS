@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# ------------------------------------------------------
-# This script assumes its running from project root dir
-# ------------------------------------------------------
 total_cols="\0"
 curr_delim="\0"
 DIR="$(pwd)/db_collection"
@@ -29,9 +26,8 @@ else
     ht_path="$1/.$2"
     total_cols=$(tail -n1 $ht_path | grep -o ":" | wc -l) # provides num of cols from metadata
     curr_delim=$(head -n1 $ht_path | cut -d: -f2) # provides current delimeter from metadata
-    total_records=$(wc -l $t_path | cut -d' ' -f1) # provides current delimeter from metadata
     pk_exists=0;
-    if [ $(sed -n 4p $ht_path | cut -d: -f2) == 1 ]
+    if [ $(sed -n 4p "$ht_path" | cut -d: -f2) == 1 ]
     then
         pk_exists=1
         total_cols=$(($total_cols-1))
@@ -40,14 +36,15 @@ fi
 
 sel_list=$(sed -n 3p $ht_path);
 sel_list=${sel_list:10}; # remove col_names from hidden file output
-
+echo
+echo "Which column to match for?";
 select select_col in $(echo $sel_list | sed 's/:/ /g') "Exit"
 do
     case $select_col in
         "Exit" )
             exit
         ;;
-        $select_col )
+        "$select_col" )
             picked_field=0;
             for ((i=1; i<=$total_cols; i++))
             do
@@ -57,35 +54,67 @@ do
                     break
                 fi
             done
-            echo "If your input is a string, please wrap it in single quotes like so 'input'!!!"
-            echo
+    
+            # WHERE X COLUMN Y is Z 
+            echo "Which column to update in matched record?";
+            update_field=0;
+            select s_update_col in $(echo $sel_list | sed 's/:/ /g') "Exit"
+            do
+                case $s_update_col in
+                    "Exit" )
+                        exit
+                    ;;
+                    "$s_update_col" )
+                        for ((i=1; i<=$total_cols; i++))
+                        do
+                            if [ "$(echo $sel_list | cut -d: -f$i)" == "$s_update_col" ]
+                            then
+                                update_field=$i
+                                echo $update_field
+                                break
+                            fi
+                        done
+                        break
+                    esac
+            done
             
             # Checks if Primary Key exists, if so increment picked fields by 1 to compensate col names
             # p_tmp_field added as hot-fix
             if [ $pk_exists == 1 ];
             then
-                tmp_field=$((picked_field+2))
-                p_tmp_field=$((picked_field+1))
+                tmp_field=$((picked_field+2));   
+                p_tmp_field=$((picked_field+1));
+                update_field=$((update_field+1));
+                update_tmp_field=$((update_field+1));
             else
-                tmp_field=$((picked_field+1))
+                tmp_field=$((picked_field+1));
+                update_tmp_field=$((update_field+1));
+                p_tmp_field=$((picked_field));
             fi
-            data_type=$(sed -n 5p $ht_path | cut -d: -f$tmp_field)
+            
+            echo "If your input is a string, please wrap it in single quotes like so 'input'!!!";
+            echo
+            
+            data_type=$(sed -n 5p $ht_path | cut -d: -f$tmp_field);
+            col_data_type=$(sed -n 5p $ht_path | cut -d: -f$update_tmp_field);
 
             read -p "What do you want to match for in column $select_col?: " match;
-            read -p "What do you want to update in column $select_col?: " insert;
-            if [ $data_type == 'int' ]
+            read -p "What do you want to insert in column $s_update_col?: " insert;
+
+            if [ $data_type == 'int' ] && [ $col_data_type == 'int' ]
             then
                 re='^[0-9]+$';
                 if ! [[ $insert =~ $re ]] && [[ $match =~ $re ]]
                 then
-                   echo "Input is not an integer" >&2; 
+                   echo "Input is not an integer" >&2;
                    exit
+                fi
             fi
 
             
             # Sanitizes delimiter for all REGEX character by escaping them
             escaped_delm=$(echo $curr_delim | sed 's/[^^\\]/[&]/g; s/\^/\\^/g; s/\\/\\\\/g')
-            awk -F"$escaped_delm" -v pick=$p_tmp_field -v a_del="$match" -v a_ins="$insert" -v OFS="$curr_delim" '$pick==a_del {$pick=a_ins} 1' $t_path > tmp && mv tmp $t_path
+            awk -F"$escaped_delm" -v a_col_update=$update_field -v pick=$p_tmp_field -v a_del="$match" -v a_ins="$insert" -v OFS="$curr_delim" '$pick==a_del {$a_col_update=a_ins} 1' $t_path > tmp && mv tmp $t_path
 
             # USE PRINTF to replace MULTICHAR DELIM LIKE FROM INSERT RECORD 
             #can be used for delete later, still needs work            # sed "s/\^\_\^/:/g" $t_path | cut -d: -f1 | grep -nw $delete | sed "s/\^\_\^/:/g" | cut -d: -f1 # to find line numbers to update

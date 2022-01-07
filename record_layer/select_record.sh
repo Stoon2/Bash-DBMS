@@ -1,5 +1,5 @@
 #!/bin/bash
-
+PS3="Action:"
 # ------------------------------------------------------
 # This script assumes its running from project root dir
 # ------------------------------------------------------

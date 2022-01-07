@@ -1,4 +1,5 @@
 #!/bin/bash
+PS3="Action:"
     # add column name fix
 # ------------------------------------------------------
 # This script assumes its running from project root dir

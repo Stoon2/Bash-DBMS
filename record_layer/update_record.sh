@@ -34,9 +34,9 @@ else
     fi
 fi
 
-sel_list=$(sed -n 3p $ht_path);
+sel_list=$(sed -n 3p $ht_path); # select third row of hidden table
 sel_list=${sel_list:10}; # remove col_names from hidden file output
-echo
+echo # spacing
 echo "Which column to match for?";
 select select_col in $(echo $sel_list | sed 's/:/ /g') "Exit"
 do
@@ -44,6 +44,7 @@ do
         "Exit" )
             exit
         ;;
+        # Matches column name with column type, while compensating for lack of PK in col_names
         "$select_col" )
             picked_field=0;
             for ((i=1; i<=$total_cols; i++))
@@ -55,7 +56,7 @@ do
                 fi
             done
     
-            # WHERE X COLUMN Y is Z 
+            # Where X column Y update to Z
             echo "Which column to update in matched record?";
             update_field=0;
             select s_update_col in $(echo $sel_list | sed 's/:/ /g') "Exit"
@@ -92,7 +93,7 @@ do
                 p_tmp_field=$((picked_field));
             fi
             
-            # spacing for menu
+            # Spacing for menu
             echo
             
             data_type=$(sed -n 5p $ht_path | cut -d: -f$tmp_field);

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+PS3="Action:"
 total_cols="\0"
 curr_delim="\0"
 DIR="$(pwd)/db_collection"

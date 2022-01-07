@@ -1,12 +1,13 @@
 #!/bin/bash
+# printf "\x1b[5"yo"\x1b[25m"
+# tput blink
 PS3="Main Action:"
 # shopt -s expand_aliases;
-# alias r_l = "record_layer"
-# alias t_l = "table_layer"
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 
 tput setaf 10 #Matrix color
+tput blink
 # Later we can edit the $USER to force capitalization on first letter and lower on the rest of username.
 # this will do for now though.
 echo ---------------------------------------------------------------------------
@@ -23,44 +24,44 @@ select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Rename DB" "Exi
 do
     case $db_input in
     "Create DB" )
-        echo Enter DB name:
+        echo -e "Enter DB name: \c"
         read
         db_layer/create_db.sh $REPLY
-    ;;
+        ;;
     "List DBs" )
         db_layer/list_db.sh 
-    ;;
+        ;;
     "Select DB" )
         curr_db=$(db_layer/select_db.sh $REPLY)
-        echo Database selected is: $curr_db
+        echo Database selected is: $curr_db 
         select t_choice in "List Existing Tables" "Create New Table" "Drop Table" "Insert Into Table" "Select From Table" "Delete From Table" "Update Table" "Back To Main Menu" "Exit"
         do
-        PS3="Table Action:"
+          PS3="Table Action:" 
           case $t_choice in
-            "List Existing Tables" )  
-              ls $curr_db
+    "List Existing Tables" )  
+              bash table_layer/list_tables.sh $curr_db
             ;;
-            "Create New Table" )  
+    "Create New Table" )  
               bash table_layer/create_table.sh $curr_db
             ;;
-            "Drop Table" )  
+    "Drop Table" )  
               bash table_layer/drop_table.sh $curr_db
             ;;
-            "Insert Into Table" )
+    "Insert Into Table" )
               select select_table in $(ls $curr_db)
               do
                 record_layer/insert_record.sh $curr_db $select_table
                 break
               done
             ;;
-            "Select From Table" )
+    "Select From Table" )
               select select_table in $(ls $curr_db)
               do
                 record_layer/select_record.sh $curr_db $select_table
                 break
               done
             ;;
-            "Delete From Table" )
+    "Delete From Table" )
               echo Pick a table: 
               select select_table in $(ls $curr_db)
               do
@@ -68,17 +69,18 @@ do
                 break
               done
             ;;
-            "Update Table" )
+    "Update Table" )
               select select_table in $(ls $curr_db)
               do
                 record_layer/update_record.sh $curr_db $select_table
                 break
               done
             ;;
-            "Back To Main Menu" )
+    "Back To Main Menu" )
+              PS3="Main Action:"
               break
             ;;
-            "Exit" )  
+    "Exit" )  
               exit 
             ;;
             * )
@@ -96,7 +98,7 @@ do
         exit
     ;;
     * )
-        echo Not valid input, please choose a number from the menu.
+        echo "Not valid input, please choose a number from the menu."
     esac
 done
 

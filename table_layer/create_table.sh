@@ -63,7 +63,7 @@ do
   # if [flag -eq 1] then temp="pk:$temp" fi -----------> here
   Metadata="m_sep:$m_sep\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #removing last m_sepater
   
-  # tab = "${tab::-1}" --------------> here
+  # tab = "${tab::-1}" --------------> here to fix delete script (add first row -sep)
   touch .$tableName.SQL
   echo -e $Metadata  >> ".$tableName.SQL"
   touch $tableName.SQL

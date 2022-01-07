@@ -1,13 +1,11 @@
 #!/bin/bash
-# printf "\x1b[5"yo"\x1b[25m"
-# tput blink
 PS3="Main Action:"
 # shopt -s expand_aliases;
 mkdir -p db_collection # insure db_collection folder is always available
 find ~+ -type f,d | xargs chmod a+x # give permission  to all files and dirs in the project
 
 tput setaf 10 #Matrix color
-tput blink
+# tput blink
 # Later we can edit the $USER to force capitalization on first letter and lower on the rest of username.
 # this will do for now though.
 echo ---------------------------------------------------------------------------
@@ -33,7 +31,7 @@ do
         ;;
     "Select DB" )
         curr_db=$(db_layer/select_db.sh $REPLY)
-        echo Database selected is: $curr_db 
+        echo Database selected is: "$(tput setaf 1)$(tput blink) $curr_db $(tput sgr0)"
         select t_choice in "List Existing Tables" "Create New Table" "Drop Table" "Insert Into Table" "Select From Table" "Delete From Table" "Update Table" "Back To Main Menu" "Exit"
         do
           PS3="Table Action:" 

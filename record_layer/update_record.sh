@@ -92,34 +92,53 @@ do
                 p_tmp_field=$((picked_field));
             fi
             
-            echo "If your input is a string, please wrap it in single quotes like so 'input'!!!";
+            # spacing for menu
             echo
             
             data_type=$(sed -n 5p $ht_path | cut -d: -f$tmp_field);
             col_data_type=$(sed -n 5p $ht_path | cut -d: -f$update_tmp_field);
-
-            read -p "What do you want to match for in column $select_col?: " match;
-            read -p "What do you want to insert in column $s_update_col?: " insert;
-
-            if [ $data_type == 'int' ] && [ $col_data_type == 'int' ]
+            
+            # Validation to insure str input by user is always surrounded by single quotes like so 'example'
+            if [ $col_data_type == 'str' ]
             then
-                re='^[0-9]+$';
-                if ! [[ $insert =~ $re ]] && [[ $match =~ $re ]]
+                read -p "What do you want to match for in column $select_col?: " match;
+                read -p "What do you want to insert in column $s_update_col?: " insert;
+                if [ $data_type == 'str' ]
+                then
+                    match="'$match'"
+                fi
+                insert="'$insert'"
+            else
+                read -p "What do you want to match for in column $select_col?: " match;
+                read -p "What do you want to insert in column $s_update_col?: " insert;
+                if [ $data_type == 'str' ]
+                then
+                    match="'$match'"
+                fi
+            fi
+
+            # Validation for user input in case its not an integer when it's supposed to be
+            re='^[0-9]+$';
+            if [ $data_type == 'int' ] 
+            then
+                if ! [[ $match =~ $re ]]
                 then
                    echo "Input is not an integer" >&2;
                    exit
                 fi
             fi
 
-            
+            if [ $col_data_type == 'int' ]
+            then
+                if ! [[ $insert =~ $re ]]
+                then
+                    echo "Input is not an integer" >&2;
+                    exit
+                fi
+            fi
+
             # Sanitizes delimiter for all REGEX character by escaping them
             escaped_delm=$(echo $curr_delim | sed 's/[^^\\]/[&]/g; s/\^/\\^/g; s/\\/\\\\/g')
             awk -F"$escaped_delm" -v a_col_update=$update_field -v pick=$p_tmp_field -v a_del="$match" -v a_ins="$insert" -v OFS="$curr_delim" '$pick==a_del {$a_col_update=a_ins} 1' $t_path > tmp && mv tmp $t_path
-
-            # USE PRINTF to replace MULTICHAR DELIM LIKE FROM INSERT RECORD 
-            #can be used for delete later, still needs work            # sed "s/\^\_\^/:/g" $t_path | cut -d: -f1 | grep -nw $delete | sed "s/\^\_\^/:/g" | cut -d: -f1 # to find line numbers to update
-            # grep -w $delete $t_path | sed "s/\^\_\^/:/g" | cut -d: -f1 # field to update in line, 
-            # how to deal with multiple character delim? could convert ^_^ to : briefly
-            # where a condition is matched by grep, cut the field and update it
     esac
 done

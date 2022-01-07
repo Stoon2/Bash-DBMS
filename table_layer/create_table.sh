@@ -13,21 +13,26 @@ do
 done
 
   PS3="Table Creation Action:"
-  echo -e "Number of Columns: \c"
-  read colsNum
-  counter=1
-  sep=":"
-  m_sep="^_^"
-  flag=0
+  echo -e "Number of Columns: \c" 
+  read colsNum 
+  if [ -z "${colsNum##*[!0-9]*}" ]  #Validation to add only numbers to columans
+  then
+  echo "Error, Enter a number"; exit;
+  else
 
-  echo "Do you want add primary key?" #P_Key??
+  counter=1 #Counter for columans data's input loop
+  sep=":" #Metadata separator
+  m_sep="^_^" #Table separator
+  trig="0" #Flag for creating primary key
+
+  echo "Do you want add primary key?" #Asking for adding primary key
   select approve in "yes" "no"
   do 
   case $approve in
     yes ) p_key="1"
           colType="pk";
           type=$type${colType}$sep; #Metadata 
-          flag=1;
+          trig="1";
           break;;
     no )  p_key="0";break ;;
     * ) 
@@ -58,17 +63,28 @@ done
     fi
     ((counter++))
   done
-  
-  if [flag -eq 1] then temp='pk:$temp' fi #Metadata 
+
+  p1="pk$m_sep"
+  p2="$tab"
+  if [ $trig == "1" ]
+  then
+  p_ki="$p1$p2" #Metadata if there is a primary key
+  echo $p_ki
+  fi 
 
   Metadata="m_sep:$m_sep\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #Assigning the Metadata key, and removing last separator
   
   #Creating table for data and hidden table for metadata
-  # tab = "${tab::-1}"
+  # tab = "${tab::-1}" --------------> here
   touch .$tableName.SQL
   echo -e $Metadata  >> ".$tableName.SQL"
   touch $tableName.SQL
+  if [ $trig == "1" ]
+  then
+  echo -e $p_ki >> "$tableName.SQL"
+  else
   echo -e $tab >> "$tableName.SQL"
+  fi
 
   if [[ $? == 0 ]] #Validation of creation
   then
@@ -77,4 +93,5 @@ done
   else
     echo "Error Creating Table $tableName"
     exit
+  fi
   fi

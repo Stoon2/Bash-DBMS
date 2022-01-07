@@ -50,8 +50,8 @@ done
     select var in "int" "str"
     do
       case $var in
-        int ) colType="int";type=$type${colType}$sep;tab=$tab${colType}$m_sep;break;; #Metadata 
-        str ) colType="str";type=$type${colType}$sep;tab=$tab${colType}$m_sep;break;; #Metadata
+        int ) colType="int";type=$type${colType}$sep;tab=$tab${colName}$m_sep;break;; #Metadata 
+        str ) colType="str";type=$type${colType}$sep;tab=$tab${colName}$m_sep;break;; #Metadata
         * ) echo "Invalid Choice" ;;
       esac
     done
@@ -75,8 +75,7 @@ done
 
   Metadata="m_sep:$m_sep\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #Assigning the Metadata key, and removing last separator
   
-  #Creating table for data and hidden table for metadata
-  # tab = "${tab::-1}" --------------> here
+  #Creating table for data and hidden table for metadat
   touch .$tableName.SQL
   echo -e $Metadata  >> ".$tableName.SQL"
   touch $tableName.SQL

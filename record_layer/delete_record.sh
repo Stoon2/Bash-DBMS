@@ -35,9 +35,9 @@ else
 fi
 
 # cp $t_path tmp2
-# check=$(cmp -s "$tmp1" "$tmp2"cmp -s ")
-# if [ -z $($check)]
-
+# check=$(cmp -s "$tmp1" "$tmp2"cmp -s )
+# if [[-z $($check)]]
+# then
 #    echo "Record deleted successfully"
 # else
 #    echo "Record not found"

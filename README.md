@@ -4,7 +4,7 @@
 
 <h1> <p align="center" style="color:#adff2f; font-family:cursive"> Say hello to the penguin  </p></h1>
 
-# <h1>Welcome to BDMS-Shell Scripting</h1>
+# <h1>Welcome to DBMS-Shell Scripting</h1>
 
 <p align="left">
     <img src="https://i.imgur.com/RFDqSfq.jpg" alt="Image" />

@@ -48,8 +48,8 @@ do
     select var in "int" "str"
     do
       case $var in
-        int ) colType="int";type=$type${colType}$sep;tab=$tab${colType}$m_sep;break;;
-        str ) colType="str";type=$type${colType}$sep;tab=$tab${colType}$m_sep;break;;
+        int ) colType="int";type=$type${colType}$sep;tab=$tab${colName}$m_sep;break;;
+        str ) colType="str";type=$type${colType}$sep;tab=$tab${colName}$m_sep;break;;
         * ) echo "Invalid Choice" ;;
       esac
     done

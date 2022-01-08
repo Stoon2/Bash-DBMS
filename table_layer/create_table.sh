@@ -36,8 +36,7 @@ done
           break;;
     no )  p_key="0";break ;;
     * ) 
-      echo "Invalid Choice" 
-    ;;
+      echo "Invalid Choice";;
     esac 
   done
 
@@ -46,7 +45,7 @@ done
     echo -e "Name of Column No.$counter: \c"
     read colName
     echo -e "Type of Column $colName: \c"
-
+  
     select var in "int" "str"
     do
       case $var in
@@ -72,7 +71,7 @@ done
   then
   p_ki="$p1$p2" #Metadata if there is a primary key
   fi 
-
+  
   Metadata="m_sep:$m_sep\nindex:1\ncol_names:$temp\np_key:$p_key\ndata_types:${type::-1}" #Assigning the Metadata key, and removing last separator
   
   #Creating table for data and hidden table for metadat

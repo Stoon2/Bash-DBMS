@@ -22,67 +22,67 @@ select db_input in "Create DB" "List DBs" "Select DB" "Drop DB" "Rename DB" "Exi
 do
     case $db_input in
     "Create DB" )
-        echo -e "Enter DB name: \c"
-        read
-        db_layer/create_db.sh $REPLY
-        ;;
+      echo -e "Enter DB name: \c"
+      read
+      db_layer/create_db.sh $REPLY
+      ;;
     "List DBs" )
-        db_layer/list_db.sh 
-        ;;
+      db_layer/list_db.sh 
+      ;;
     "Select DB" )
-        curr_db=$(db_layer/select_db.sh $REPLY)
-        echo Database selected is: "$(tput setaf 1)$(tput blink) $curr_db $(tput sgr0)"
-        select t_choice in "List Existing Tables" "Create New Table" "Drop Table" "Insert Into Table" "Select From Table" "Delete From Table" "Update Table" "Back To Main Menu" "Exit"
-        do
-          PS3="Table Action:" 
-          case $t_choice in
+      curr_db=$(db_layer/select_db.sh $REPLY)
+      echo Database selected is: "$(tput setaf 1)$(tput blink) $curr_db $(tput sgr0)"
+      select t_choice in "List Existing Tables" "Create New Table" "Drop Table" "Insert Into Table" "Select From Table" "Delete From Table" "Update Table" "Back To Main Menu" "Exit"
+      do
+      PS3="Table Action:" 
+    case $t_choice in
     "List Existing Tables" )  
-              bash table_layer/list_tables.sh $curr_db
-            ;;
+      bash table_layer/list_tables.sh $curr_db
+      ;;
     "Create New Table" )  
-              bash table_layer/create_table.sh $curr_db
-            ;;
+      bash table_layer/create_table.sh $curr_db
+      ;;
     "Drop Table" )  
-              bash table_layer/drop_table.sh $curr_db
-            ;;
+      bash table_layer/drop_table.sh $curr_db
+      ;;
     "Insert Into Table" )
-              select select_table in $(ls $curr_db)
-              do
-                record_layer/insert_record.sh $curr_db $select_table
-                break
-              done
-            ;;
+      select select_table in $(ls $curr_db)
+      do
+        record_layer/insert_record.sh $curr_db $select_table
+        break
+      done
+      ;;
     "Select From Table" )
-              select select_table in $(ls $curr_db)
-              do
-                record_layer/select_record.sh $curr_db $select_table
-                break
-              done
-            ;;
+      select select_table in $(ls $curr_db)
+      do
+        record_layer/select_record.sh $curr_db $select_table
+        break
+      done
+      ;;
     "Delete From Table" )
-              echo Pick a table: 
-              select select_table in $(ls $curr_db)
-              do
-                record_layer/delete_record.sh $curr_db $select_table
-                break
-              done
-            ;;
+      echo Pick a table: 
+      select select_table in $(ls $curr_db)
+      do
+        record_layer/delete_record.sh $curr_db $select_table
+        break
+      done
+      ;;
     "Update Table" )
-              select select_table in $(ls $curr_db)
-              do
-                record_layer/update_record.sh $curr_db $select_table
-                break
-              done
-            ;;
+      select select_table in $(ls $curr_db)
+      do
+        record_layer/update_record.sh $curr_db $select_table
+        break
+      done
+      ;;
     "Back To Main Menu" )
-              PS3="Main Action:"
-              break
-            ;;
+      PS3="Main Action:"
+      break
+    ;;
     "Exit" )  
-              exit 
-            ;;
-            * )
-              echo "$(tput setaf 1)Invalid Input"
+      exit 
+      ;;
+    * )
+      echo "$(tput setaf 1)Invalid Input"
           esac
         done
     ;;

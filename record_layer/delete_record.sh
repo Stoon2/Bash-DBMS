@@ -4,17 +4,17 @@ t_path="$1/$2"
 ht_path="$1/.$2"
 
 curr_delim=$(head -n1 $ht_path | cut -d: -f2) # provides current delimeter from metadata
-escaped_delm=$(echo $curr_delim | sed 's/[^^\\]/[&]/g; s/\^/\\^/g; s/\\/\\\\/g') # delimiter sanitized from regex chars
+escaped_delim=$(echo $curr_delim | sed 's/[^^\\]/[&]/g; s/\^/\\^/g; s/\\/\\\\/g') # delimiter sanitized from regex chars
 
 # cp $t_path tmp1 
 
 if [[ -f $t_path ]]; 
     then
-	awk -F"$escaped_delm" -v OFS="$escaped_delm" '{if(NR==1){print $0}}' $t_path; # Prompt the name of fields
+	awk -F"$escaped_delim" -v OFS="$escaped_delim" '{if(NR==1){print $0}}' $t_path; # Prompt the name of fields
 	read -p "Enter column to delete record from: " colName; # Picking which field
 	read -p "Enter value : " Value; # Picking which value
 	str=\'$Value\' # Regex for string values
-	awk -F"$escaped_delm" -v OFS="$escaped_delm" '
+	awk -F"$escaped_delim" -v OFS="$escaped_delim" '
 	{
 		if(NR==1){
 			for(i=1;i<=NF;i++){
@@ -26,7 +26,8 @@ if [[ -f $t_path ]];
 				target=NR
 			}
 		}
-		{if(NR!=target)print 
+		{
+		if(NR!=target)print 
 		}
 	}' $t_path > tmp && mv tmp $t_path; # Deleting by moving the data without the records where had to be deleted
 else
@@ -35,8 +36,8 @@ else
 fi
 
 # cp $t_path tmp2
-# check=$(cmp -s "$tmp1" "$tmp2"cmp -s )
-# if [[-z $($check)]]
+# check=$(cmp -s "$tmp1" "$tmp2")
+# if [ $check == "\0" ]
 # then
 #    echo "Record deleted successfully"
 # else

@@ -68,11 +68,11 @@ Just type in the terminal within the project directory
     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-device-camera-video">
     <path fill-rule="evenodd" d="..."></path>
 </svg>
-    <span aria-label="Video description dotnet-evergreen.mp4" class="m-1">dotnet-evergreen.mp4</span>
+    <span aria-label="Video description dotnet-evergreen.mp4" class="m-1">Demo</span>
     <span class="dropdown-caret"></span>
   </summary>
 
-  <video src="./demo/demo.mp4" data-canonical-src="./demo/demo.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 width-fit" style="max-height:640px;">
+  <video src="https://www.veed.io/view/b20dc053-3621-4c1d-9358-031c911d3768" data-canonical-src="https://www.veed.io/view/b20dc053-3621-4c1d-9358-031c911d3768" controls="controls" muted="muted" class="d-block rounded-bottom-2 width-fit" style="max-height:640px;">
 
   </video>
 </details>

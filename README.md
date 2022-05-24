@@ -63,19 +63,7 @@ Just type in the terminal within the project directory
 
 ## ▶️ Demo
 
-<details open="" class="details-reset border rounded-2">
-  <summary class="px-3 py-2 border-bottom">
-    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-device-camera-video">
-    <path fill-rule="evenodd" d="..."></path>
-</svg>
-    <span aria-label="Video description dotnet-evergreen.mp4" class="m-1">Demo</span>
-    <span class="dropdown-caret"></span>
-  </summary>
-
-  <video src="https://www.veed.io/view/b20dc053-3621-4c1d-9358-031c911d3768" data-canonical-src="https://www.veed.io/view/b20dc053-3621-4c1d-9358-031c911d3768" controls="controls" muted="muted" class="d-block rounded-bottom-2 width-fit" style="max-height:640px;">
-
-  </video>
-</details>
+https://user-images.githubusercontent.com/96744413/169929359-b662c106-1adf-4561-b6ff-e79f0078e0e6.mp4
 
 ---
 

@@ -63,9 +63,7 @@ Just type in the terminal within the project directory
 
 ## ▶️ Demo
 
-<video width="320" height="240" controls>
-  <source src="./demo/demo.mp4" type="video/mp4">
-</video>
+[!Demo(./demo/demo.mp4)](./demo/demo.mp4)
 
 ---
 

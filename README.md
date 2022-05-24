@@ -73,5 +73,5 @@ https://user-images.githubusercontent.com/96744413/169929359-b662c106-1adf-4561-
 - **[Mohamed Said](https://github.com/Stoon2)**
 
 <p align="center">
-    <img src="https://c.tenor.com/S61VCO73mOAAAAAC/linux-tux.gif" alt="Interface" />
+    <img src="https://c.tenor.com/S61VCO73mOAAAAAC/linux-tux.gif" alt="Interface" height = "100px" width = "100px" />
 </p>

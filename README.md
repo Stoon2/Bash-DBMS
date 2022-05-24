@@ -63,7 +63,7 @@ Just type in the terminal within the project directory
 
 ## ▶️ Demo
 
-[!Demo(./demo/demo.mp4)](./demo/demo.mp4)
+[!Demo()](./demo/demo.mp4)
 
 ---
 

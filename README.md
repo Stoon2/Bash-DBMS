@@ -61,7 +61,7 @@ Just type in the terminal within the project directory
 
 ---
 
-## ▶️ Demeo
+## ▶️ Demo
 
 https://user-images.githubusercontent.com/96744413/169929359-b662c106-1adf-4561-b6ff-e79f0078e0e6.mp4
 
